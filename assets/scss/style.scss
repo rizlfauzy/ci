@@ -1,0 +1,439 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900;1000&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$primary_bg_color: #cc7000;
+$primary_text_color: #ffe3ab;
+$secondary_bg_color: #f7b359;
+$secondary_text_color: #e7cf8d;
+$tertiary_bg_color: #f0bb86;
+$tertiary_text_color: #949494;
+$dark_text_color: #0f172a;
+
+$border_radius: 5px;
+
+$font_very_very_very_small: 0.5rem;
+$font_very_very_small: 0.6rem;
+$font_very_small: 0.8rem;
+$font_small: 1rem;
+$font_medium: 1.2rem;
+$font_large: 1.4rem;
+$font_very_large: 1.6rem;
+$font_very_very_large: 2rem;
+
+// mixins
+@mixin formatText($weight, $size, $lineHeight, $color) {
+  font-style: normal;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $lineHeight;
+  color: $color;
+}
+
+// body syles
+body {
+  font-family: "Mulish", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// navbar styles
+.navbar-fixed {
+  @apply fixed z-[9999] bg-white bg-opacity-70 backdrop-blur-sm  dark:bg-opacity-50;
+  box-shadow: inset 0 -1px 0 0 rgba($color: #000000, $alpha: 0.2);
+}
+#nav-menu {
+  .nav-list {
+    .active {
+      color: $secondary_bg_color;
+    }
+    .dropdown-item.active {
+      @apply dark:bg-dark bg-white dark:hover:bg-gray-800 hover:bg-gray-100;
+    }
+    .img_profil {
+      @apply w-10 h-10 rounded-full object-cover;
+      border: 3px solid $secondary_bg_color;
+    }
+  }
+}
+.hamburger-line {
+  @apply w-[30px] h-[2px] my-2 block bg-dark transition duration-300 ease-in-out dark:bg-white;
+}
+.hamburger-active {
+  span:nth-child(1) {
+    @apply rotate-45;
+  }
+  span:nth-child(2) {
+    @apply scale-0;
+  }
+  span:nth-child(3) {
+    @apply -rotate-45;
+  }
+}
+
+// alert styles
+.for_alert {
+  position: fixed;
+  top: 61px;
+  right: 17%;
+  left: 17%;
+  margin-bottom: 10px;
+  opacity: 1;
+  z-index: 99999;
+  list-style: none;
+  text-align: center;
+}
+
+
+// form styles
+.input_group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+  .input_search:focus ~ button{
+    .bi.focus::before {
+      content: "\F62A";
+    }
+  }
+  .input_search ~ button{
+    .bi.not_focus::before {
+      content: "\F52A";
+    }
+  }
+  & > .form_control,
+  & > .form_control_search {
+    position: relative;
+    min-width: 0;
+    flex: 1 1 auto;
+    width: 1%;
+  }
+  & .card_btn_pass {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+  & .place_label {
+    position: absolute;
+    top: 50%;
+    left: 25px;
+    transform: translateY(-50%);
+    z-index: 2;
+    cursor: text;
+    @include formatText(500, $font_very_small, 1.5, $tertiary_text_color);
+    &.label_modal {
+      left: 10px;
+      @include formatText(
+        500,
+        $font_very_very_very_small + 0.25,
+        1.5,
+        $tertiary_text_color
+      );
+    }
+  }
+  &
+    > :is(
+      .form_control:not(:placeholder-shown),
+      .form_control:focus,
+      .form_control_search:not(:placeholder-shown),
+      .form_control_search:focus
+    )
+    + .place_label {
+    top: 20%;
+    @include formatText(400, $font_very_very_small, 1.5, $tertiary_text_color);
+  }
+  &
+    > :is(.form_control:not(:placeholder-shown), .form_control:focus)
+    + .place_label.label_modal {
+    @include formatText(
+      400,
+      $font_very_very_very_small,
+      1.5,
+      $tertiary_text_color
+    );
+  }
+  .card_btn_pass {
+    .bi{
+      color: $primary_bg_color;
+    }
+    &.active {
+      .bi::before {
+        content: "\F33F";
+      }
+    }
+    &.clicked {
+      .bi::before {
+        content: "\F22C";
+      }
+    }
+  }
+}
+.form_control {
+  border: 1px solid $secondary_bg_color;
+  padding: 15px 25px;
+  min-height: 45px;
+  @include formatText(500, $font_very_small, 1.5, $tertiary_text_color);
+  border-radius: 0.75rem;
+  width: 100%;
+  @apply dark:bg-slate-900 dark:border-[#949494];
+  &:focus {
+    color: $tertiary_text_color;
+    // background-color: #fff;
+    border-color: $primary_bg_color;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(229, 155, 27, 0.25);
+    @apply dark:border-blue-200 dark:shadow-slate-400 dark:shadow-[0_0_0_0.25rem];
+  }
+}
+
+.form_control_search {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid $secondary_bg_color;
+  padding: 15px 25px;
+  min-height: 45px;
+  @include formatText(500, $font_very_small, 1.5, $tertiary_text_color);
+  // border-radius: 0.75rem;
+  width: 100%;
+  &:focus {
+    color: $tertiary_text_color;
+    // background-color: #fff;
+    border-color: $primary_bg_color;
+    outline: 0;
+    // box-shadow: 0 0 0 0.25rem rgba(229, 155, 27, 0.25);
+    @apply dark:border-blue-200 dark:shadow-slate-400 dark:shadow-[0_0_0_0.25rem];
+  }
+}
+
+// popup styles
+.pop_up_wrapper {
+  position: relative;
+  & > .pop_up.on_pop {
+    z-index: 998;
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, 25%);
+    width: 300px;
+    background-color: $primary_text_color;
+    @apply dark:bg-slate-800;
+    box-shadow: -5px 5px 20px 0px grey;
+    padding: 10px 15px;
+    border-radius: $border_radius * 2;
+    &.pop_up_modal {
+      top: 30%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+      width: 225px;
+      .pop_up_close {
+        button {
+          @apply p-2;
+        }
+      }
+    }
+    .pop_up_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      .pop_up_title {
+        @include formatText(600, $font_small, 1.5, $primary_text_color);
+        @apply dark:text-white text-primary-bg;
+      }
+      .pop_up_close {
+        @apply cursor-pointer;
+        button {
+          @apply px-4;
+        }
+      }
+    }
+    .pop_up_table {
+      .pop_up_content {
+        &_image {
+          object-fit: cover;
+          width: 100%;
+          border-radius: $border-radius;
+          box-shadow: 0px 3px 20px 0px grey;
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+    .pop_up_button {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      button {
+        width: 100%;
+      }
+    }
+    // @media screen and (max-width: 1024px) {
+    //   width: 100%;
+    //   right: 50%;
+    //   top: -5%;
+    //   transform: translate(50%, 50%);
+    // }
+  }
+  & > .pop_up.on_hidden {
+    display: none;
+  }
+}
+
+// modal styles
+.modal_box {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 9999; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100vh;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(94, 94, 94, 0.5);
+  @apply dark:bg-[rgba(15,15,15,0.7)];
+  padding-top: 50px;
+  .modal_close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    @include formatText(bold, 40px, 1.5, $primary_text_color);
+    &:hover,
+    &:focus {
+      color: #f44336;
+      cursor: pointer;
+    }
+  }
+  .modal_content {
+    @apply bg-white dark:bg-slate-700;
+    border-radius: 10px;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    max-width: 400px; /* Could be more or less, depending on screen size */
+    border: 0 solid $secondary_bg_color;
+    .modal_container {
+      padding: 16px;
+      text-align: center;
+      .modal_image {
+        width: 150px;
+        @apply mx-auto rounded-[10px] mt-4 mb-6;
+        box-shadow: 0px 0px 10px 3px rgb(101 101 101 / 75%);
+        img {
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+      .modal_header {
+        @include formatText(bolder, $font_small, 1.5, $secondary_bg_color);
+        @media screen and (max-width: 400px) {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 400px) {
+    // position: relative;
+    // top: 50%;
+    // transform: translateY(-60%);
+    height: 100%;
+    .modal_content {
+      @apply mx-5;
+    }
+  }
+}
+
+// btn styles
+.btn {
+  @apply py-2;
+  border-radius: $border_radius + 3px;
+  transition: all 0.3s ease;
+  &.btn_primary {
+    background-color: $primary_bg_color;
+    border-color: $primary_bg_color;
+    @include formatText(600, $font_medium, 1.5, $primary_text_color);
+    &:hover {
+      background-color: $secondary_bg_color;
+      border-color: $secondary_bg_color;
+    }
+  }
+  &.btn_secondary {
+    background-color: $tertiary_text_color;
+    border-color: $tertiary_text_color;
+    @include formatText(600, $font_medium, 1.5, $primary_text_color);
+    &:hover {
+      background-color: $tertiary_bg_color;
+      border-color: $tertiary_bg_color;
+    }
+  }
+  &.btn_warning {
+    @apply bg-yellow-400 hover:bg-yellow-500 px-4;
+    @include formatText(600, $font_small, 1.5, $primary_text_color);
+  }
+  &.btn_reset {
+    @apply bg-red-700 hover:bg-red-400 px-4;
+    @include formatText(600, $font_small, 1.5, $primary_text_color);
+  }
+  &.btn_cancel {
+    @apply bg-gray-500 hover:bg-gray-600;
+    @include formatText(600, $font_medium, 1.5, $primary_text_color);
+  }
+  &.btn_back_to_default_img {
+    @include formatText(300, $font_very_small, 1.5, $primary_text_color);
+    @apply px-5 text-center;
+    background-color: $tertiary_text_color;
+    border-color: $tertiary_text_color;
+    &:hover {
+      background-color: $tertiary_bg_color;
+      border-color: $tertiary_bg_color;
+    }
+  }
+}
+
+// link styles
+a.link_btn {
+  @apply px-5 text-center;
+}
+a.link {
+  @apply py-2;
+  border-radius: $border_radius + 3px;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.3s ease;
+  &_primary {
+    background-color: $primary_bg_color;
+    border-color: $primary_bg_color;
+    @include formatText(600, $font_small, 1.5, $primary_text_color);
+    &:hover {
+      background-color: $secondary_bg_color;
+      border-color: $secondary_bg_color;
+    }
+  }
+  &_delete {
+    // background-color: $primary_bg_color;
+    // border-color: $primary_bg_color;
+    @apply bg-red-700 border-red-700;
+    @include formatText(600, $font_small, 1.5, $primary_text_color);
+    &:hover {
+      // background-color: $secondary_bg_color;
+      // border-color: $secondary_bg_color;
+      @apply bg-red-400 border-red-400;
+    }
+  }
+}
+
+table {
+  .tr_show {
+    @include formatText(500, $font_small, 1, #000);
+    th,
+    td {
+      text-align: left;
+      padding-bottom: 10px;
+    }
+  }
+}
