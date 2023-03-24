@@ -25,6 +25,7 @@ class Mahasiswa extends CI_Controller
   {
     parent::__construct();
     $this->load->model("Mahasiswa_model");
+    $this->load->library('form_validation');
   }
 
   public function index()
@@ -73,30 +74,192 @@ class Mahasiswa extends CI_Controller
         "data" => $this->Mahasiswa_model->getJurusanByName($jurusan)
       ]);
     } catch (\Exception $e) {
-      echo json_encode(["error" => true, "message" => $e->getMessage()]);
+      $this->output->set_status_header(500)->set_output(
+        json_encode(["error" => true, "message" => $e->getMessage()])
+      );
     }
   }
 
   public function insert()
   {
     try {
-      $body = $this->input->post();
-      if (!filter_var($body['email'], FILTER_VALIDATE_EMAIL)) throw new Exception("Email Tidak Valid !!!");
-      $isNrpReady = $this->Mahasiswa_model->isNrpReady($body['nrp']);
-      if ($isNrpReady) throw new Exception("NRP sudah digunakan !!!");
-      if (!is_numeric($body['nrp'])) throw new Exception("NRP harus berupa angka");
-      if (strlen($body['nrp']) < 12) throw new Exception("NRP kurang dari 12 angka !!!");
-      $isEmailReady = $this->Mahasiswa_model->isEmailReady($body['email']);
-      if ($isEmailReady) throw new Exception("Email sudah digunakan !!!");
-      $insert_mahasiswa = $this->Mahasiswa_model->insertMahasiswa($body);
-      if ($insert_mahasiswa != 1) throw new Exception("Mahasiswa gagal di input");
-      echo json_encode([
-        "error" => false,
-        "message" => "Mahasiswa berhasil ditambahkan",
-        "data" => $this->Mahasiswa_model->getListMahasiswa()
+      function body($post = null){
+        $ci =& get_instance();
+        return $ci->input->post($post,true);
+      }
+      $this->form_validation->set_rules([
+        [
+          'field' => 'nama',
+          'label' => 'Nama',
+          'rules' => 'required|trim',
+          'errors' => [
+            'required' => '%s harus diisi !!!'
+          ]
+        ],
+        [
+          'field' => 'nrp',
+          'label' => 'NRP',
+          'rules' => 'required|numeric|trim',
+          'errors' => [
+            'required' => '%s harus diisi !!!',
+            'numeric'=>"%s harus berupa angka"
+          ]
+        ],
+        [
+          'field' => 'email',
+          'label' => 'Email',
+          'rules' => 'required|valid_email|trim',
+          'errors' => [
+            'required' => '%s harus diisi !!!',
+            'valid_email' => 'Email tidak valid !!!'
+          ]
+          ],
+          [
+            'field' => 'jurusan',
+            'label' => 'Jurusan',
+            'rules' => 'required|trim',
+            'errors' => [
+              'required' => '%s harus diisi !!!'
+            ]
+          ]
       ]);
+      if (!$this->form_validation->run()) throw new Exception("<div class='flex flex-col items-start ml-3'>".validation_errors()."</div>");
+      if (strlen(body('nrp')) < 12) throw new Exception("NRP kurang dari 12 angka !!!");
+      $isNrpReady = $this->Mahasiswa_model->isNrpReady(body('nrp'));
+      if ($isNrpReady) throw new Exception("NRP sudah digunakan !!!");
+      $isEmailReady = $this->Mahasiswa_model->isEmailReady(body('email'));
+      if ($isEmailReady) throw new Exception("Email sudah digunakan !!!");
+      $insert_mahasiswa = $this->Mahasiswa_model->insertMahasiswa(body());
+      if ($insert_mahasiswa != 1) throw new Exception("Mahasiswa gagal diinput");
+      $this->output->set_status_header(200)->set_output(
+        json_encode([
+          "error" => false,
+          "message" => "Mahasiswa berhasil ditambahkan",
+          "data" => $this->Mahasiswa_model->getListMahasiswa()
+        ])
+      );
     } catch (\Exception $e) {
-      echo json_encode(["error" => true, "message" => $e->getMessage()]);
+      $this->output->set_status_header(500)->set_output(
+        json_encode(["error" => true, "message" => $e->getMessage()])
+      );
+    }
+  }
+
+  public function delete($id){
+    try {
+      if (empty($id)) throw new Exception("Id tidak boleh kosong");
+      $delete_mhs = $this->Mahasiswa_model->deleteMahasiswa($id);
+      if ($delete_mhs != 1) throw new Exception("Mahasiswa gagal dihapus");
+      $this->output->set_status_header(200)->set_output(
+        json_encode([
+          "error" => false,
+          "message" => "Mahasiswa berhasil dihapus",
+          "data" => $this->Mahasiswa_model->getListMahasiswa()
+        ])
+      );
+    } catch (\Exception $e) {
+      $this->output->set_status_header(500)->set_output(
+        json_encode(["error" => true, "message" => $e->getMessage()])
+      );
+    }
+  }
+
+  public function get_mahasiswa_by_id($id)
+  {
+    try {
+      if (empty($id)) throw new Exception("Id tidak boleh kosong");
+      $mhs = $this->Mahasiswa_model->getMahasiswa($id);
+      if (!$mhs) throw new Exception(("Mahasiswa dengan id tersebut tidak tersedia !!!"));
+      $this->output->set_status_header(200)->set_output(
+        json_encode([
+          "error" => false,
+          "message" => "data mahasiswa berhasil didapatkan",
+          "data" => $mhs
+        ])
+      );
+    } catch (\Exception $e) {
+      $this->output->set_status_header(500)->set_output(
+        json_encode(["error" => true, "message" => $e->getMessage()])
+      );
+    }
+  }
+
+  public function update()
+  {
+    try {
+      $body = $this->input->post(null,true);
+      $this->form_validation->set_rules([
+        [
+          'field' => 'nama',
+          'label' => 'Nama',
+          'rules' => 'required|trim',
+          'errors' => [
+            'required' => '%s harus diisi !!!'
+          ]
+        ],
+        [
+          'field' => 'nrp',
+          'label' => 'NRP',
+          'rules' => 'required|numeric|trim',
+          'errors' => [
+            'required' => '%s harus diisi !!!',
+            'numeric'=>"%s harus berupa angka"
+          ]
+        ],
+        [
+          'field' => 'email',
+          'label' => 'Email',
+          'rules' => 'required|valid_email|trim',
+          'errors' => [
+            'required' => '%s harus diisi !!!',
+            'valid_email' => 'Email tidak valid !!!'
+          ]
+          ],
+          [
+            'field' => 'jurusan',
+            'label' => 'Jurusan',
+            'rules' => 'required|trim',
+            'errors' => [
+              'required' => '%s harus diisi !!!'
+            ]
+          ]
+      ]);
+      if (!$this->form_validation->run()) throw new Exception("<div class='flex flex-col items-start ml-3'>".validation_errors()."</div>");
+      if (strlen($body['nrp']) < 12) throw new Exception("NRP kurang dari 12 angka !!!");
+      $isNrpReady = $this->Mahasiswa_model->isNrpReady($body['nrp'],$body['id']);
+      if ($isNrpReady) throw new Exception("NRP sudah digunakan !!!");
+      $isEmailReady = $this->Mahasiswa_model->isEmailReady($body['email'],$body['id']);
+      if ($isEmailReady) throw new Exception("Email sudah digunakan !!!");
+      $updateMahasiswa = $this->Mahasiswa_model->updateMahasiswa($body);
+      if ($updateMahasiswa < 1) throw new Exception("Data gagal terinput");
+      $this->output->set_status_header(200)->set_output(
+        json_encode([
+          "error" => false,
+          "message" => "Mahasiswa berhasil diubah",
+          "data" => $this->Mahasiswa_model->getListMahasiswa()
+        ])
+      );
+    } catch (\Exception $e) {
+      $this->output->set_status_header(500)->set_output(
+        json_encode(["error" => true, "message" => $e->getMessage()])
+      );
+    }
+  }
+
+  public function search(){
+    try {
+      $body = $this->input->post(null,true);
+      $this->output->set_status_header(200)->set_output(
+        json_encode([
+          "error" => false,
+          "message" => "Mahasiswa berhasil dicari",
+          "data" => $this->Mahasiswa_model->searchMahasiswa($body)
+        ])
+      );
+    } catch (\Exception $e) {
+      $this->output->set_status_header(500)->set_output(
+        json_encode(["error" => true, "message" => $e->getMessage()])
+      );
     }
   }
 }

@@ -23,6 +23,11 @@
               </a>
             </li>
             <li class="group md:hover:bg-gray-300 lg:hover:bg-transparent">
+              <a href="<?= base_url('peoples/') ?>" class="text-base text-dark mx-8 flex py-2 group-hover:text-slate-800 nav-link <?= isset($peoples) ? "active" : "" ?>">
+                Peoples
+              </a>
+            </li>
+            <li class="group md:hover:bg-gray-300 lg:hover:bg-transparent">
               <a href="<?= base_url('about/') ?>" class="text-base text-dark mx-8 flex py-2 group-hover:text-slate-800 nav-link <?= isset($about) ? "active" : "" ?>">
                 About
               </a>
@@ -34,6 +39,7 @@
   </div>
 </header>
 <div class="for_alert">
+  <?= validation_errors(); ?>
   <!-- <-?php Flasher::flash() ?> -->
 </div>
 <script src="<?= base_url('assets/js/navbar.js') ?>"></script>

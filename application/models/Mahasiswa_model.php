@@ -18,17 +18,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Mahasiswa_model extends CI_Model {
 
-  // ------------------------------------------------------------------------
-
   public function __construct()
   {
     parent::__construct();
   }
 
-  // ------------------------------------------------------------------------
-
-
-  // ------------------------------------------------------------------------
   public function getListMahasiswa()
   {
     try {
@@ -99,37 +93,35 @@ class Mahasiswa_model extends CI_Model {
     }
   }
 
-  // public function updateMahasiswa($data)
-  // {
-  //   try {
-  //     if (empty($data)) throw new Exception("Data tidak ada");
-  //     $this->db->query('UPDATE ' . $this->table . ' SET name = :nama, email = :email, nrp = :nrp, jurusan = :jurusan WHERE id = :id');
-  //     $this->db->bind("id", $data['id']);
-  //     $this->db->bind("nama", $data['nama']);
-  //     $this->db->bind("email", $data['email']);
-  //     $this->db->bind("nrp", $data['nrp']);
-  //     $this->db->bind("jurusan", $data['jurusan']);
-  //     $this->db->execute();
-  //     return $this->db->rowCount();
-  //   } catch (\Exception $e) {
-  //     die($e->getMessage());
-  //   }
-  // }
+  public function updateMahasiswa($data)
+  {
+    try {
+      if (empty($data)) throw new Exception("Data tidak ada");
+      list('id'=>$id,'nama' => $nama, 'email' => $email, 'nrp'=>$nrp,'jurusan'=>$jurusan) = $data;
+      $this->db->query("UPDATE mahasiswa SET name = '$nama', email = '$email', nrp = '$nrp', jurusan = '$jurusan' WHERE id = '$id'");
+      return $this->db->affected_rows();
+    } catch (\Exception $e) {
+      die($e->getMessage());
+    }
+  }
 
-  // public function deleteMahasiswa($id = "")
-  // {
-  //   try {
-  //     if (empty($id)) throw new Exception("id tidak ada");
-  //     $this->db->query('DELETE FROM ' . $this->table . ' WHERE id=:id;');
-  //     $this->db->bind("id", $id);
-  //     $this->db->execute();
-  //     return $this->db->rowCount();
-  //   } catch (\Exception $e) {
-  //     die($e->getMessage());
-  //   }
-  // }
+  public function deleteMahasiswa($id)
+  {
+    try {
+      $this->db->query("DELETE FROM mahasiswa WHERE id='$id';");
+      return $this->db->affected_rows();
+    } catch (\Exception $e) {
+      die($e->getMessage());
+    }
+  }
 
-  // ------------------------------------------------------------------------
+  public function searchMahasiswa($data){
+    try {
+      return $this->db->where("nrp ILIKE ","%".$data["search"]."%")->or_where(["name ILIKE "=>"%".$data["search"]."%"])->or_where(["jurusan ILIKE "=>"%".$data["search"]."%"])->get("mahasiswa")->result();
+    }catch(\Exception $e){
+      die($e->getMessage());
+    }
+  }
 
 }
 
