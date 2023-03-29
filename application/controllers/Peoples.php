@@ -24,7 +24,7 @@ class Peoples extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    $this->load->library('Template');
+    $this->load->library('template');
     $this->load->model("Peoples_model");
   }
 
@@ -32,7 +32,7 @@ class Peoples extends CI_Controller
   {
     $data['title'] = "Peoples | Index";
     $data['peoples'] = true;
-    $this->Template->view("peoples/index",$data);
+    $this->template->view("peoples/index",$data);
   }
 
 }

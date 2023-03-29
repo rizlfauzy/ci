@@ -44,7 +44,7 @@ function templateTable(element, items) {
 					.join("")
 			: /*html*/ `
                   <tr class="bg-gray-100 hover:bg-gray-200 border-b last:border-0 transition duration-300 ease-in-out">
-                    <td class="md:text-lg text-md leading-[1.25] py-6 px-12 text-dark text-center" colspan="3">
+                    <td class="md:text-md text-sm leading-[1.25] py-6 px-12 text-dark text-center" colspan="3">
                       Mahasiswa tidak tersedia
                     </td>
                   </tr>
@@ -79,13 +79,30 @@ async function showListJurusan(value = "") {
 	}
 }
 
-btn_search.addEventListener("click", function (e) {
+btn_search.addEventListener("click", async function (e) {
 	if (this.children[0].classList.contains("not_focus")) {
 		input_search.focus();
 		return;
 	}
 	addClass(btn_search.children[0], "not_focus");
 	input_search.value = "";
+	try {
+		const form_data = new FormData();
+		form_data.append("search", input_search.value);
+		const {
+			error: error_search,
+			message: message_search,
+			data: list_mahasiswa,
+		} = await post_data({
+			url: url + "/mahasiswa/search",
+			method: "post",
+			body: form_data,
+		});
+		if (error_search) throw new Error(message_search);
+		templateTable(tbody_mahasiswa, list_mahasiswa);
+	} catch (e) {
+		swalAlert(e.message, "error");
+	}
 });
 
 input_search.addEventListener("focus", function (e) {
@@ -95,6 +112,7 @@ input_search.addEventListener("focus", function (e) {
 
 input_search.addEventListener("blur", function (e) {
 	removeClass(btn_search.children[0], "focus");
+	console.log(e);
 });
 
 input_search.addEventListener("input", async function (e) {

@@ -100,11 +100,11 @@ body {
       content: "\F62A";
     }
   }
-  .input_search ~ button{
-    .bi.not_focus::before {
-      content: "\F52A";
-    }
-  }
+  // .input_search ~ button{
+  //   .bi.not_focus::before {
+  //     content: "\F52A";
+  //   }
+  // }
   & > .form_control,
   & > .form_control_search {
     position: relative;

@@ -825,11 +825,6 @@ video {
   border-color: rgb(191 219 254 / var(--tw-border-opacity));
 }
 
-.border-slate-400{
-  --tw-border-opacity: 1;
-  border-color: rgb(148 163 184 / var(--tw-border-opacity));
-}
-
 .border-gray-200{
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
@@ -838,6 +833,11 @@ video {
 .border-primary-bg{
   --tw-border-opacity: 1;
   border-color: rgb(204 112 0 / var(--tw-border-opacity));
+}
+
+.border-slate-400{
+  --tw-border-opacity: 1;
+  border-color: rgb(148 163 184 / var(--tw-border-opacity));
 }
 
 .bg-dark{
@@ -1027,14 +1027,14 @@ video {
   color: rgb(30 41 59 / var(--tw-text-opacity));
 }
 
-.text-white{
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
 .text-tertiary-text{
   --tw-text-opacity: 1;
   color: rgb(148 148 148 / var(--tw-text-opacity));
+}
+
+.text-white{
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .underline{
@@ -1223,10 +1223,6 @@ body {
 
 .input_group .input_search:focus ~ button .bi.focus::before {
   content: "\f62a";
-}
-
-.input_group .input_search ~ button .bi.not_focus::before {
-  content: "\f52a";
 }
 
 .input_group > .form_control, .input_group > .form_control_search {
@@ -1872,11 +1868,6 @@ table .tr_show td {
 }
 
 @media (min-width: 768px){
-  .md\:text-lg{
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-
   .md\:text-md{
     font-size: 1rem;
   }

@@ -67,7 +67,7 @@
                   else :
                     ?>
                     <tr class="bg-gray-100 hover:bg-gray-200 border-b last:border-0 transition duration-300 ease-in-out">
-                      <td class="md:text-lg text-md leading-[1.25] py-6 px-12 text-dark text-center" colspan="3">
+                      <td class="md:text-md text-sm leading-[1.25] py-6 px-12 text-dark text-center" colspan="3">
                         Mahasiswa tidak tersedia
                       </td>
                     </tr>

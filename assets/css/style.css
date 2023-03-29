@@ -61,9 +61,6 @@ body {
 .input_group .input_search:focus ~ button .bi.focus::before {
   content: "\f62a";
 }
-.input_group .input_search ~ button .bi.not_focus::before {
-  content: "\f52a";
-}
 .input_group > .form_control, .input_group > .form_control_search {
   position: relative;
   min-width: 0;
