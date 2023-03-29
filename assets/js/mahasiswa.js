@@ -79,16 +79,10 @@ async function showListJurusan(value = "") {
 	}
 }
 
-btn_search.addEventListener("click", async function (e) {
-	if (this.children[0].classList.contains("not_focus")) {
-		input_search.focus();
-		return;
-	}
-	addClass(btn_search.children[0], "not_focus");
-	input_search.value = "";
+async function getSearchData(search) {
 	try {
 		const form_data = new FormData();
-		form_data.append("search", input_search.value);
+		form_data.append("search", search);
 		const {
 			error: error_search,
 			message: message_search,
@@ -103,6 +97,16 @@ btn_search.addEventListener("click", async function (e) {
 	} catch (e) {
 		swalAlert(e.message, "error");
 	}
+}
+
+btn_search.addEventListener("click", async function (e) {
+	if (this.children[0].classList.contains("not_focus")) {
+		input_search.focus();
+		return;
+	}
+	addClass(btn_search.children[0], "not_focus");
+	input_search.value = "";
+	await getSearchData(input_search.value)
 });
 
 input_search.addEventListener("focus", function (e) {
@@ -112,28 +116,12 @@ input_search.addEventListener("focus", function (e) {
 
 input_search.addEventListener("blur", function (e) {
 	removeClass(btn_search.children[0], "focus");
-	console.log(e);
+	if (!e.relatedTarget) addClass(btn_search.children[0], "not_focus");
 });
 
 input_search.addEventListener("input", async function (e) {
 	const { value } = this;
-	try {
-		const form_data = new FormData();
-		form_data.append("search", value);
-		const {
-			error: error_search,
-			message: message_search,
-			data: list_mahasiswa,
-		} = await post_data({
-			url: url + "/mahasiswa/search",
-			method: "post",
-			body: form_data,
-		});
-		if (error_search) throw new Error(message_search);
-		templateTable(tbody_mahasiswa, list_mahasiswa);
-	} catch (e) {
-		swalAlert(e.message, "error");
-	}
+	await getSearchData(value);
 });
 
 btn_tambah.addEventListener("click", function (e) {

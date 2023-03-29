@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900;1000&display=swap");
 
 /*
-! tailwindcss v3.2.7 | MIT License | https://tailwindcss.com
+! tailwindcss v3.3.0 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -33,6 +33,7 @@
 3. Use a more readable tab size.
 4. Use the user's configured `sans` font-family by default.
 5. Use the user's configured `sans` font-feature-settings by default.
+6. Use the user's configured `sans` font-variation-settings by default.
 */
 
 html {
@@ -49,6 +50,8 @@ html {
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
+  font-variation-settings: normal;
+  /* 6 */
 }
 
 /*
@@ -1124,7 +1127,7 @@ body {
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
-.dark .navbar-fixed{
+:is(.dark .navbar-fixed){
   --tw-bg-opacity: 0.5;
 }
 
@@ -1146,12 +1149,12 @@ body {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
-.dark #nav-menu .nav-list .dropdown-item.active{
+:is(.dark #nav-menu .nav-list .dropdown-item.active){
   --tw-bg-opacity: 1;
   background-color: rgb(15 23 42 / var(--tw-bg-opacity));
 }
 
-.dark #nav-menu .nav-list .dropdown-item.active:hover{
+:is(.dark #nav-menu .nav-list .dropdown-item.active:hover){
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
@@ -1180,7 +1183,7 @@ body {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.dark .hamburger-line{
+:is(.dark .hamburger-line){
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
@@ -1328,7 +1331,7 @@ body {
   width: 100%;
 }
 
-.dark .form_control{
+:is(.dark .form_control){
   --tw-border-opacity: 1;
   border-color: rgb(148 148 148 / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
@@ -1342,7 +1345,7 @@ body {
   box-shadow: 0 0 0 0.25rem rgba(229, 155, 27, 0.25);
 }
 
-.dark .form_control:focus{
+:is(.dark .form_control:focus){
   --tw-border-opacity: 1;
   border-color: rgb(191 219 254 / var(--tw-border-opacity));
   --tw-shadow: 0 0 0 0.25rem;
@@ -1373,7 +1376,7 @@ body {
   outline: 0;
 }
 
-.dark .form_control_search:focus{
+:is(.dark .form_control_search:focus){
   --tw-border-opacity: 1;
   border-color: rgb(191 219 254 / var(--tw-border-opacity));
   --tw-shadow: 0 0 0 0.25rem;
@@ -1397,7 +1400,7 @@ body {
   background-color: #ffe3ab;
 }
 
-.dark .pop_up_wrapper > .pop_up.on_pop{
+:is(.dark .pop_up_wrapper > .pop_up.on_pop){
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
 }
@@ -1436,7 +1439,7 @@ body {
   color: rgb(204 112 0 / var(--tw-text-opacity));
 }
 
-.dark .pop_up_wrapper > .pop_up.on_pop .pop_up_header .pop_up_title{
+:is(.dark .pop_up_wrapper > .pop_up.on_pop .pop_up_header .pop_up_title){
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -1493,7 +1496,7 @@ body {
   background-color: rgba(94, 94, 94, 0.5);
 }
 
-.dark .modal_box{
+:is(.dark .modal_box){
   background-color: rgba(15,15,15,0.7);
 }
 
@@ -1522,7 +1525,7 @@ body {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.dark .modal_box .modal_content{
+:is(.dark .modal_box .modal_content){
   --tw-bg-opacity: 1;
   background-color: rgb(51 65 85 / var(--tw-bg-opacity));
 }
@@ -1817,52 +1820,52 @@ table .tr_show td {
   display: inline-flex;
 }
 
-.dark .dark\:border-\[\#949494\]{
+:is(.dark .dark\:border-\[\#949494\]){
   --tw-border-opacity: 1;
   border-color: rgb(148 148 148 / var(--tw-border-opacity));
 }
 
-.dark .dark\:border-blue-200{
+:is(.dark .dark\:border-blue-200){
   --tw-border-opacity: 1;
   border-color: rgb(191 219 254 / var(--tw-border-opacity));
 }
 
-.dark .dark\:bg-\[rgba\(15\2c 15\2c 15\2c 0\.7\)\]{
+:is(.dark .dark\:bg-\[rgba\(15\2c 15\2c 15\2c 0\.7\)\]){
   background-color: rgba(15,15,15,0.7);
 }
 
-.dark .dark\:bg-dark{
+:is(.dark .dark\:bg-dark){
   --tw-bg-opacity: 1;
   background-color: rgb(15 23 42 / var(--tw-bg-opacity));
 }
 
-.dark .dark\:bg-slate-900{
+:is(.dark .dark\:bg-slate-900){
   --tw-bg-opacity: 1;
   background-color: rgb(15 23 42 / var(--tw-bg-opacity));
 }
 
-.dark .dark\:text-white{
+:is(.dark .dark\:text-white){
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.dark .dark\:shadow-\[0_0_0_0\.25rem\]{
+:is(.dark .dark\:shadow-\[0_0_0_0\.25rem\]){
   --tw-shadow: 0 0 0 0.25rem;
   --tw-shadow-colored: 0 0 0 0.25rem var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.dark .dark\:shadow-slate-400{
+:is(.dark .dark\:shadow-slate-400){
   --tw-shadow-color: #94a3b8;
   --tw-shadow: var(--tw-shadow-colored);
 }
 
-.dark .dark\:shadow-slate-500{
+:is(.dark .dark\:shadow-slate-500){
   --tw-shadow-color: #64748b;
   --tw-shadow: var(--tw-shadow-colored);
 }
 
-.dark .dark\:hover\:bg-gray-800:hover{
+:is(.dark .dark\:hover\:bg-gray-800:hover){
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
@@ -1941,7 +1944,7 @@ table .tr_show td {
     background-color: transparent;
   }
 
-  .dark .lg\:dark\:bg-transparent{
+  :is(.dark .lg\:dark\:bg-transparent){
     background-color: transparent;
   }
 }
