@@ -54,13 +54,17 @@ class Mahasiswa extends CI_Controller
   public function get_list_jurusan()
   {
     try {
-      echo json_encode([
-        "error" => false,
-        "message" => "Data jurusan berhasil didapatkan",
-        "data" => $this->Mahasiswa_model->getListJurusan()
-      ]);
+      return $this->output->set_status_header(200)->set_output(
+        json_encode([
+          "error" => false,
+          "message" => "Data jurusan berhasil didapatkan",
+          "data" => $this->Mahasiswa_model->getListJurusan()
+        ])
+      );
     } catch (\Exception $e) {
-      echo json_encode(["error" => true, "message" => $e->getMessage()]);
+      return $this->output->set_status_header(500)->set_output(
+        json_encode(["error" => true, "message" => $e->getMessage()])
+      );
     }
   }
 
@@ -68,13 +72,15 @@ class Mahasiswa extends CI_Controller
   {
     try {
       $jurusan = str_replace('%20', ' ', $name);
-      echo json_encode([
-        "error" => false,
-        "message" => "Data jurusan berhasil didapatkan",
-        "data" => $this->Mahasiswa_model->getJurusanByName($jurusan)
-      ]);
+      return $this->output->set_status_header(200)->set_output(
+        json_encode([
+          "error" => false,
+          "message" => "Data jurusan berhasil didapatkan",
+          "data" => $this->Mahasiswa_model->getJurusanByName($jurusan)
+        ])
+        );
     } catch (\Exception $e) {
-      $this->output->set_status_header(500)->set_output(
+      return $this->output->set_status_header(500)->set_output(
         json_encode(["error" => true, "message" => $e->getMessage()])
       );
     }
@@ -131,7 +137,7 @@ class Mahasiswa extends CI_Controller
       if ($isEmailReady) throw new Exception("Email sudah digunakan !!!");
       $insert_mahasiswa = $this->Mahasiswa_model->insertMahasiswa(body());
       if ($insert_mahasiswa != 1) throw new Exception("Mahasiswa gagal diinput");
-      $this->output->set_status_header(200)->set_output(
+      return $this->output->set_status_header(200)->set_output(
         json_encode([
           "error" => false,
           "message" => "Mahasiswa berhasil ditambahkan",
@@ -139,7 +145,7 @@ class Mahasiswa extends CI_Controller
         ])
       );
     } catch (\Exception $e) {
-      $this->output->set_status_header(500)->set_output(
+      return $this->output->set_status_header(500)->set_output(
         json_encode(["error" => true, "message" => $e->getMessage()])
       );
     }
@@ -150,7 +156,7 @@ class Mahasiswa extends CI_Controller
       if (empty($id)) throw new Exception("Id tidak boleh kosong");
       $delete_mhs = $this->Mahasiswa_model->deleteMahasiswa($id);
       if ($delete_mhs != 1) throw new Exception("Mahasiswa gagal dihapus");
-      $this->output->set_status_header(200)->set_output(
+      return $this->output->set_status_header(200)->set_output(
         json_encode([
           "error" => false,
           "message" => "Mahasiswa berhasil dihapus",
@@ -158,7 +164,7 @@ class Mahasiswa extends CI_Controller
         ])
       );
     } catch (\Exception $e) {
-      $this->output->set_status_header(500)->set_output(
+      return $this->output->set_status_header(500)->set_output(
         json_encode(["error" => true, "message" => $e->getMessage()])
       );
     }
@@ -170,7 +176,7 @@ class Mahasiswa extends CI_Controller
       if (empty($id)) throw new Exception("Id tidak boleh kosong");
       $mhs = $this->Mahasiswa_model->getMahasiswa($id);
       if (!$mhs) throw new Exception(("Mahasiswa dengan id tersebut tidak tersedia !!!"));
-      $this->output->set_status_header(200)->set_output(
+      return $this->output->set_status_header(200)->set_output(
         json_encode([
           "error" => false,
           "message" => "data mahasiswa berhasil didapatkan",
@@ -178,7 +184,7 @@ class Mahasiswa extends CI_Controller
         ])
       );
     } catch (\Exception $e) {
-      $this->output->set_status_header(500)->set_output(
+      return $this->output->set_status_header(500)->set_output(
         json_encode(["error" => true, "message" => $e->getMessage()])
       );
     }
@@ -232,7 +238,7 @@ class Mahasiswa extends CI_Controller
       if ($isEmailReady) throw new Exception("Email sudah digunakan !!!");
       $updateMahasiswa = $this->Mahasiswa_model->updateMahasiswa($body);
       if ($updateMahasiswa < 1) throw new Exception("Data gagal terinput");
-      $this->output->set_status_header(200)->set_output(
+      return $this->output->set_status_header(200)->set_output(
         json_encode([
           "error" => false,
           "message" => "Mahasiswa berhasil diubah",
@@ -240,7 +246,7 @@ class Mahasiswa extends CI_Controller
         ])
       );
     } catch (\Exception $e) {
-      $this->output->set_status_header(500)->set_output(
+      return $this->output->set_status_header(500)->set_output(
         json_encode(["error" => true, "message" => $e->getMessage()])
       );
     }
@@ -249,7 +255,7 @@ class Mahasiswa extends CI_Controller
   public function search(){
     try {
       $body = $this->input->post(null,true);
-      $this->output->set_status_header(200)->set_output(
+      return $this->output->set_status_header(200)->set_output(
         json_encode([
           "error" => false,
           "message" => "Mahasiswa berhasil dicari",
@@ -257,7 +263,7 @@ class Mahasiswa extends CI_Controller
         ])
       );
     } catch (\Exception $e) {
-      $this->output->set_status_header(500)->set_output(
+      return $this->output->set_status_header(500)->set_output(
         json_encode(["error" => true, "message" => $e->getMessage()])
       );
     }

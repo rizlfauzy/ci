@@ -427,6 +427,7 @@ a.link {
   }
 }
 
+// tables styles
 table {
   .tr_show {
     @include formatText(500, $font_small, 1, #000);
@@ -436,4 +437,9 @@ table {
       padding-bottom: 10px;
     }
   }
+}
+
+// pagination styles
+li.pagination_active{
+  @apply bg-primary-bg text-white hover:text-slate-700 hover:bg-primary-text;
 }

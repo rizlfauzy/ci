@@ -7,7 +7,7 @@
       <div class="w-3/4 mx-auto py-3">
         <div class="mb-3 flex items-center">
           <div class="input_group">
-            <input type="text" class="form_control input_search" name="search" id="search" placeholder=" ">
+            <input type="text" class="form_control input_search" name="search" id="search" placeholder=" " autocomplete="off">
             <label for="search" class="place_label">Cari</label>
             <button type="button" class="card_btn_pass btn_search">
               <i class="bi bi-search not_focus"></i>

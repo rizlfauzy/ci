@@ -120,8 +120,7 @@ input_search.addEventListener("blur", function (e) {
 });
 
 input_search.addEventListener("input", async function (e) {
-	const { value } = this;
-	await getSearchData(value);
+	await getSearchData(this.value);
 });
 
 btn_tambah.addEventListener("click", function (e) {

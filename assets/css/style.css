@@ -418,4 +418,8 @@ table .tr_show td {
   padding-bottom: 10px;
 }
 
+li.pagination_active {
+  @apply bg-primary-bg text-white hover:text-slate-700 hover:bg-primary-text;
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -27,7 +27,7 @@
           </div>
           <div class="mb-3 flex items-center">
             <div class="input_group pop_up_wrapper">
-              <input type="text" class="form_control_search" name="jurusan" id="jurusan" placeholder=" ">
+              <input type="text" class="form_control_search" name="jurusan" id="jurusan" placeholder=" " autocomplete="off">
               <label for="jurusan" class="place_label">Jurusan</label>
               <button type="button" class="card_btn_pass btn_dropdown">
                 <i class="bi bi-caret-up"></i>
